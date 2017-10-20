@@ -2,13 +2,16 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        _target : cc.Node,
-        _velocity : 1000,
-        _intervalAttack : 2
+        bulletPrefabEnemy : cc.Prefab,
+        _velocityMovementEnemy : null,
+        _intervalAttackEnemy : null
     },
 
     onLoad: function () {
-        this._target = cc.find("player");
+        this._intervalAttackEnemy = 0.5;
+        this._velocityMovementEnemy = 250;
+
+        this.schedule(this._shoot, this._intervalAttackEnemy);                        
     },
     
     update: function (dt) {
@@ -16,7 +19,13 @@ cc.Class({
     },
 
     _changeDirection : function(dt) {
-        this.node.y -= this._velocity * dt;
+        this.node.y -= this._velocityMovementEnemy * dt;
+    },
+
+    _shoot : function() {
+        const bullet = cc.instantiate(this.bulletPrefabEnemy);
+        bullet.parent = this.node.parent;
+        bullet.position = this.node.position;
     }
 
 });

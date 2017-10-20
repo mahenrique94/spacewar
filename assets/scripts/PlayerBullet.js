@@ -2,7 +2,11 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        _velocity : 15000,
+        _velocityMovementBulleyPlayer : null,
+    },
+
+    onLoad: function () {
+        this._velocityMovementBulleyPlayer = 1000;
     },
 
     update: function (dt) {
@@ -15,7 +19,7 @@ cc.Class({
     },
 
     _changeDirextion : function(dt) {
-        this.node.y += this._velocity * dt;
+        this.node.y += this._velocityMovementBulleyPlayer * dt;
     }
 
 });
